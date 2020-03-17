@@ -62,4 +62,9 @@ view: v_model_metadata_kpi {
     type: number
     sql: sum(${TABLE}.value) ;;
   }
+
+  measure: average_value {
+    type: number
+    sql: avg(${TABLE}.value) ;;
+  }
 }
