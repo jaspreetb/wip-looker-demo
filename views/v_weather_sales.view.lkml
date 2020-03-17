@@ -61,4 +61,9 @@ view: v_weather_sales {
     type: number
     sql: sum(${TABLE}.sales_value) ;;
   }
+
+  measure: daily_sales {
+    type: number
+    sql: avg(${TABLE}.sales_value) ;;
+  }
 }
