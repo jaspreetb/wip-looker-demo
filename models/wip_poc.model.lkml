@@ -41,3 +41,5 @@ explore: v_model_metadata_kpi{}
 explore: v_model_performance {}
 
 explore: v_sales_forecast {}
+
+explore: v_weather_sales {}
