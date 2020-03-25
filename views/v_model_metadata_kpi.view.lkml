@@ -84,10 +84,12 @@ where p.province is not null;;
   measure: total_value {
     type: number
     sql: sum(${TABLE}.value) ;;
+    value_format: "0.00"
   }
 
   measure: average_value {
     type: number
     sql: avg(${TABLE}.value) ;;
+    value_format: "0.00"
   }
 }
