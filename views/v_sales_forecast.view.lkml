@@ -88,6 +88,6 @@ where p.province is not null;;
 
   measure: sales_delta {
     type: number
-    sql: ${TABLE}.predicted_value - ${TABLE}.historical_sales ;;
+    sql: sum(${TABLE}.predicted_value) - sum(${TABLE}.historical_sales) ;;
   }
 }
