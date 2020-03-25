@@ -22,6 +22,4 @@ explore: v_model_performance {}
 
 explore: v_sales_forecast {}
 
-explore: v_weather_sales {}
-
 explore: v_evaluation_set {}
