@@ -110,7 +110,7 @@
     type: looker_grid
     fields: [v_model_metadata_kpi.average_value, v_model_metadata_kpi.key]
     filters:
-      v_model_metadata_kpi.type: error
+      v_model_metadata_kpi.type: gain
     sorts: [v_model_metadata_kpi.average_value desc]
     limit: 500
     show_view_names: false
