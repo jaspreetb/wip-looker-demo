@@ -28,14 +28,10 @@ view: v_store {
     sql: ${TABLE}.label ;;
   }
 
-  measure: lat {
-    type: number
-    sql: ${TABLE}.lat ;;
-  }
-
-  measure: lon {
-    type: number
-    sql: ${TABLE}.lon ;;
+  dimension: location {
+    type: location
+    sql_latitude:${TABLE}.lat ;;
+    sql_longitude:${TABLE}.lon ;;
   }
 
 }
