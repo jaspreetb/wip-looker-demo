@@ -108,7 +108,7 @@
     model: wip
     explore: v_model_metadata_kpi
     type: looker_grid
-    fields: [v_model_metadata_kpi.average_value, v_model_metadata_kpi.key]
+    fields: [v_model_metadata_kpi.average_value, v_model_metadata_kpi.key_label]
     filters:
       v_model_metadata_kpi.type: gain
     sorts: [v_model_metadata_kpi.average_value desc]
