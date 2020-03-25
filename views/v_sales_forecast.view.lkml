@@ -1,9 +1,14 @@
 view: v_sales_forecast {
   derived_table: {
-    sql: WITH historical AS (
-  SELECT distinct s.product_id, date(f.ts_local) date, sum(value) historical_sales
+    sql: WITH sales_by_day AS (
+  SELECT distinct product_id, date(ts_local) date, sum(value) total_value
+  FROM `development-146318.wip.wip_business_metric_by_hour`
+  group by product_id, date
+),
+historical AS (
+  SELECT distinct s.product_id, date(f.ts_local) date, sum(total_value) historical_sales
   FROM `development-146318.wip.wip_forecast` f
-    inner join `development-146318.wip.wip_business_metric_by_hour` s on s.product_id=f.product_id and DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)=cast(s.ts_local as datetime)
+    inner join sales_by_day s on s.product_id=f.product_id and DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)=cast(s.date as datetime)
   group by s.product_id, date
 ),
 forecast AS (
