@@ -76,9 +76,14 @@ where p.province is not null;;
     sql: sum(${TABLE}.historical_sales) ;;
   }
 
-  measure: rmse {
+  measure: rmse_predict_actual {
     type: number
     sql: SQRT(AVG((${TABLE}.predicted_value-${TABLE}.actual_value)*(${TABLE}.predicted_value-${TABLE}.actual_value))) ;;
+  }
+
+  measure: rmse_historical_actual {
+    type: number
+    sql: SQRT(AVG((${TABLE}.historical_sales-${TABLE}.actual_value)*(${TABLE}.historical_sales-${TABLE}.actual_value))) ;;
   }
 
   measure: mae {

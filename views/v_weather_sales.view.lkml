@@ -1,11 +1,10 @@
-view: v_model_performance {
+view: v_weather_sales {
   derived_table: {
-    sql: SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, s.ts_local AS date,
-        p.lat, p.lon, actual_value, s.predicted_value
-        FROM `development-146318.wip.wip_evaluation_set` s
+    sql: SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, s.ts_local AS date, w.condition_label, w.condition_value, s.value sales_value
+        FROM `development-146318.wip.wip_business_metric_by_hour` s
           inner join `development-146318.wip.wip_product` p on s.product_id=p.id
-        where p.province is not null
-;;
+          inner join `development-146318.wip.wip_weather_historical_fx_by_day` w on p.poi_id=w.poi_id and w.ts_local=s.ts_local
+        where p.province is not null;;
   }
 
   dimension: client_id {
@@ -48,31 +47,23 @@ view: v_model_performance {
     sql: ${TABLE}.date ;;
   }
 
-  dimension: lat {
-    type: number
-    sql: ${TABLE}.lat ;;
+  dimension: weather_condition {
+    type:  string
+    sql: ${TABLE}.condition_label ;;
   }
 
-  dimension: lon {
+  measure: avg_weather_value {
     type: number
-    sql: ${TABLE}.lon ;;
+    sql: avg(${TABLE}.condition_value) ;;
   }
 
-  dimension: location {
-    type: location
-    sql_latitude:${TABLE}.lat ;;
-    sql_longitude:${TABLE}.lon ;;
+  measure: total_sales {
+    type: number
+    sql: sum(${TABLE}.sales_value) ;;
   }
 
-  measure: total_actual_value {
+  measure: daily_sales {
     type: number
-    sql: sum(${TABLE}.actual_value) ;;
-    value_format: "$#,##0.00"
+    sql: avg(${TABLE}.sales_value) ;;
   }
-
-  measure: total_predicted_value {
-    type: number
-    sql: sum(${TABLE}.predicted_value) ;;
-    value_format: "$#,##0.00"
-    }
 }

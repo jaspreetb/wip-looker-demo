@@ -29,3 +29,5 @@ explore: v_evaluation_set {}
 explore: v_store {}
 
 explore: v_geo_weather_impact {}
+
+explore: v_weather_sales {}
