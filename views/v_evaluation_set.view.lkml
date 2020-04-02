@@ -12,7 +12,7 @@ forecast AS (
   where disable_weather=false
   group by product_id, date
 )
-SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, timestamp(s.date) date,
+SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim1_label revenue_center_name, dim2 as item, dim2_label item_name, timestamp(s.date) date,
   s.predicted_value, h.historical_sales, s.actual_value
 FROM forecast s
   inner join `development-146318.wip.wip_product` p on s.product_id=p.id
@@ -50,9 +50,19 @@ where p.province is not null;;
     sql: ${TABLE}.revenue_center ;;
   }
 
+  dimension: revenue_center_name {
+    type: string
+    sql: ${TABLE}.revenue_center_name ;;
+  }
+
   dimension: item {
     type: string
     sql: ${TABLE}.item ;;
+  }
+
+  dimension: item_name {
+    type: string
+    sql: ${TABLE}.item_name ;;
   }
 
   dimension: date {

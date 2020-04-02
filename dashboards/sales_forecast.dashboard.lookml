@@ -1,5 +1,5 @@
 - dashboard: sales_forecast
-  title: Sales Forecast
+  title: 2 - Sales Forecast
   layout: newspaper
   embed_style:
     background_color: "#E6E6E6"
@@ -390,11 +390,7 @@
     field: v_sales_forecast.item
   - name: Date_Range
     title: Date_Range
-    type: field_filter
+    type: date_filter
     default_value: 2020/03/20 to 2020/03/31
     allow_multiple_values: true
     required: false
-    model: wip
-    explore: wip_time_range
-    listens_to_filters: []
-    field: wip_time_range.range_start_date

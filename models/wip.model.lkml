@@ -14,10 +14,6 @@ persist_with: wip_poc_default_datagroup
 
 explore: wip_client {}
 
-explore: wip_model_metadata_item {}
-
-explore: wip_time_range {}
-
 explore: v_model_metadata_kpi{}
 
 explore: v_model_performance {}
@@ -31,3 +27,7 @@ explore: v_store {}
 explore: v_geo_weather_impact {}
 
 explore: v_weather_sales {}
+
+explore: v_impact {}
+
+explore: v_weather_month_correlation {}
