@@ -1,5 +1,5 @@
 - dashboard: sales_weather_correlation
-  title: 5 - Sales Weather Correlation
+  title: WIP 5 - Sales Weather Correlation
   layout: newspaper
   elements:
   - title: Sales Weather Corrolation

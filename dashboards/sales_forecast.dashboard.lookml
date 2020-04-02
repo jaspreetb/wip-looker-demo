@@ -1,5 +1,5 @@
 - dashboard: sales_forecast
-  title: 2 - Sales Forecast
+  title: WIP 2 - Sales Forecast
   layout: newspaper
   embed_style:
     background_color: "#E6E6E6"
