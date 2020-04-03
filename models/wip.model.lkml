@@ -31,3 +31,5 @@ explore: v_weather_sales {}
 explore: v_impact {}
 
 explore: v_weather_month_correlation {}
+
+explore: v_visits_ooh {}
