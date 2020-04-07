@@ -94,6 +94,17 @@ view: v_visits_ooh {
     sql_longitude:${TABLE}.x ;;
   }
 
+  dimension: prov_code {
+    sql: ${TABLE}.province ;;
+    map_layer_name: canada_prov_layer
+    drill_fields: [city_code]
+  }
+
+  dimension: city_code {
+    sql: ${TABLE}.city;;
+    map_layer_name: canada_city_layer
+  }
+
   measure: count {
     type: count
     drill_fields: [id, name]
@@ -113,4 +124,11 @@ view: v_visits_ooh {
     type: number
     sql: ${TABLE}.multiplier ;;
   }
+
+
+  measure: board_name {
+    type: string
+    sql: ${TABLE}.name ;;
+  }
+
 }

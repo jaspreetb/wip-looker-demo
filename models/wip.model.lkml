@@ -10,6 +10,16 @@ datagroup: wip_poc_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+map_layer: canada_prov_layer {
+  file: "/data/canada_prov.topojson"
+  property_key: "prov_code"
+}
+
+map_layer: canada_city_layer {
+  file: "/data/canada_city.topojson"
+  property_key: "city_code"
+}
+
 persist_with: wip_poc_default_datagroup
 
 explore: wip_client {}
@@ -33,3 +43,7 @@ explore: v_impact {}
 explore: v_weather_month_correlation {}
 
 explore: v_visits_ooh {}
+
+explore: v_market_index {}
+
+explore: v_market_index_pivot {}
