@@ -1,4 +1,4 @@
-view: wip_client {
+view: v_wip_client {
   sql_table_name: wip.wip_client ;;
   drill_fields: [id]
 

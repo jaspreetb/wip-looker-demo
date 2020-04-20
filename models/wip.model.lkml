@@ -1,7 +1,7 @@
 connection: "bigquery_wip"
 
 # include all the views
-include: "/views/**/*.view"
+include: "/views/**/v_*.view"
 
 include: "/dashboards/**/*.dashboard"
 
@@ -22,7 +22,7 @@ map_layer: canada_city_layer {
 
 persist_with: wip_poc_default_datagroup
 
-explore: wip_client {}
+explore: v_wip_client {}
 
 explore: v_model_metadata_kpi{}
 
