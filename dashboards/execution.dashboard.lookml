@@ -1,5 +1,5 @@
 - dashboard: execution
-  title: Executive Summary
+  title: Execution
   layout: newspaper
   elements:
   - title: Items - Average RMSE Deduction
@@ -46,8 +46,8 @@
     defaults_version: 1
     listen: {}
     row: 0
-    col: 9
-    width: 8
+    col: 12
+    width: 12
     height: 6
   - title: Revenue Centers - Average RMSE Deduction
     name: Revenue Centers - Average RMSE Deduction
@@ -94,7 +94,7 @@
     listen: {}
     row: 0
     col: 0
-    width: 9
+    width: 12
     height: 6
   - title: Weather Correlation
     name: Weather Correlation
@@ -154,5 +154,5 @@
     listen: {}
     row: 6
     col: 0
-    width: 17
+    width: 24
     height: 7
