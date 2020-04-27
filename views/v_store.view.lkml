@@ -14,20 +14,9 @@ view: v_store {
   }
 
   dimension: store {
-    label: "Store Address:"
     type: string
     sql: ${TABLE}.store ;;
-    html: <div style="width:200px; float:left;">{{store}}</div>
-      Drive Time: <br/>
-      <a type="button" target="_self"  href="/dashboards/49?store={{store}}">5 minutes</a>
-      <br/>
-      <a type="button" target="_self"  href="/dashboards/49?store={{store}}">10 minutes</a>;;
   }
-
-  set: drill_fields {
-    fields: [store]
-  }
-
 
   dimension: province {
     type: string
@@ -40,8 +29,17 @@ view: v_store {
   }
 
   dimension: label {
+    label: "Store Address:"
     type: string
     sql: ${TABLE}.label ;;
+    html: <div style="width:200px; float:left;">{{label}}</div>
+      <a type="button" target="_self"  href="/dashboards/49?store_id={{store_id}}">Select Store</a>
+      <br/>
+      <a type="button" target="_self"  href="/dashboards/49?store_id=">Remove Store</a>;;
+  }
+
+  set: drill_fields {
+    fields: [label]
   }
 
   dimension: location {
