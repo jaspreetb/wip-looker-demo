@@ -68,26 +68,30 @@ where p.province is not null;;
   measure: total_predicted_value {
     type: number
     sql: sum(${TABLE}.predicted_value) ;;
+    value_format: "$#,##0"
   }
 
   measure: total_actual_sales {
     type: number
     sql: sum(${TABLE}.actual_sales) ;;
-
+    value_format: "$#,##0"
   }
 
   measure: average_predicted_value {
     type: number
     sql: avg(${TABLE}.predicted_value) ;;
+    value_format: "$#,##0"
   }
 
   measure: total_historical_sales {
     type: number
     sql: sum(${TABLE}.historical_sales) ;;
-  }
+    value_format: "$#,##0"
+    }
 
   measure: sales_delta {
     type: number
     sql: sum(${TABLE}.predicted_value) - sum(${TABLE}.historical_sales) ;;
-  }
+    value_format: "$#,##0"
+    }
 }

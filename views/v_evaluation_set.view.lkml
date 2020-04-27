@@ -94,30 +94,30 @@ where p.province is not null;;
   measure: total_actual_sales {
     type: number
     sql: sum(${TABLE}.actual_value) ;;
-    value_format: "#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: total_historical_sales {
     type: number
     sql: sum(${TABLE}.historical_sales) ;;
-    value_format: "#,##0.00"
+    value_format: "$#,##0"
   }
 
   measure: rmse_predict_actual {
     type: number
     sql: SQRT(AVG((${TABLE}.predicted_value-${TABLE}.actual_value)*(${TABLE}.predicted_value-${TABLE}.actual_value))) ;;
-    value_format: "#,##0.00"
-    }
+    value_format: "$#,##0"
+  }
 
   measure: rmse_historical_actual {
     type: number
     sql: SQRT(AVG((${TABLE}.historical_sales-${TABLE}.actual_value)*(${TABLE}.historical_sales-${TABLE}.actual_value))) ;;
-    value_format: "#,##0.00"
-    }
+    value_format: "$#,##0"
+  }
 
   measure: mae {
     type: number
     sql: AVG(ABS((${TABLE}.predicted_value-${TABLE}.actual_value))) ;;
-    value_format: "#,##0.00"
-    }
+    value_format: "$#,##0"
+  }
 }

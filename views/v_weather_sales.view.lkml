@@ -1,10 +1,14 @@
 view: v_weather_sales {
   derived_table: {
-    sql: SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, s.ts_local AS date, w.condition_label, w.condition_value, s.value sales_value
+    sql: SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, s.ts_local AS date,
+          w.condition_label, w.condition_value, s.value sales_value
         FROM `development-146318.wip.wip_business_metric_by_hour` s
           inner join `development-146318.wip.wip_product` p on s.product_id=p.id
           inner join `development-146318.wip.wip_weather_historical_fx_by_day` w on p.poi_id=w.poi_id and w.ts_local=s.ts_local
-        where p.province is not null;;
+        where p.province is not null
+        {% if v_weather_sales.client_id._in_query %}
+        and p.client_id='{{v_weather_sales.client_id}}'
+        {% endif %};;
   }
 
   dimension: client_id {
@@ -55,15 +59,18 @@ view: v_weather_sales {
   measure: avg_weather_value {
     type: number
     sql: avg(${TABLE}.condition_value) ;;
+    value_format: "$#,##0"
   }
 
   measure: total_sales {
     type: number
     sql: sum(${TABLE}.sales_value) ;;
+    value_format: "$#,##0"
   }
 
   measure: daily_sales {
     type: number
     sql: avg(${TABLE}.sales_value) ;;
+    value_format: "$#,##0"
   }
 }

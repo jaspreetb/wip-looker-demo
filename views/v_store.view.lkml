@@ -29,7 +29,7 @@ view: v_store {
   }
 
   dimension: label {
-    label: "Store Address:"
+    label: "Address:"
     type: string
     sql: ${TABLE}.label ;;
     html: <div style="width:200px; float:left;">{{label}}</div>
