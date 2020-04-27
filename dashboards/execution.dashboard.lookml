@@ -1,5 +1,5 @@
 - dashboard: execution
-  title: WIP 1- Execution
+  title: Executive Summary
   layout: newspaper
   elements:
   - title: Items - Average RMSE Deduction

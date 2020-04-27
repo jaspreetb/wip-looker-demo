@@ -1,5 +1,5 @@
 - dashboard: geo_weather_impact
-  title: WIP 4 - Geo Weather Impact
+  title: Geo Weather Impact
   layout: newspaper
   elements:
   - title: Percentage of Stores with > 10% Reduced Prediction Error

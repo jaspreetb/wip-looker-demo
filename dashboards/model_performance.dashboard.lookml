@@ -1,5 +1,5 @@
 - dashboard: model_performance
-  title: WIP 3 - Model Performance
+  title: Model Performance
   layout: newspaper
   elements:
   - title: Model Performance Overtime
