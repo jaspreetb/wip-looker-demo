@@ -4,8 +4,7 @@ view: v_model_performance {
         p.lat, p.lon, actual_value, s.predicted_value
         FROM `development-146318.wip.wip_evaluation_set` s
           inner join `development-146318.wip.wip_product` p on s.product_id=p.id
-        where p.province is not null
-;;
+        where p.province is not null;;
   }
 
   dimension: client_id {

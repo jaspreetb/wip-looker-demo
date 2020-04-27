@@ -13,7 +13,7 @@ forecast AS (
   group by product_id, date
 )
 SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim1_label revenue_center_name, dim2 as item, dim2_label item_name, timestamp(s.date) date,
-  s.predicted_value, h.historical_sales, s.actual_value
+  s.predicted_value, h.historical_sales, s.actual_value, p.lat, p.lon,
 FROM forecast s
   inner join `development-146318.wip.wip_product` p on s.product_id=p.id
   left join historical h on h.date=s.date and h.product_id=s.product_id
@@ -68,6 +68,22 @@ where p.province is not null;;
   dimension: date {
     type: date
     sql: ${TABLE}.date ;;
+  }
+
+  dimension: lat {
+    type: number
+    sql: ${TABLE}.lat ;;
+  }
+
+  dimension: lon {
+    type: number
+    sql: ${TABLE}.lon ;;
+  }
+
+  dimension: location {
+    type: location
+    sql_latitude:${TABLE}.lat ;;
+    sql_longitude:${TABLE}.lon ;;
   }
 
   measure: total_predicted_value {
