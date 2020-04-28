@@ -75,6 +75,26 @@ where p.province is not null
     sql: ${TABLE}.store ;;
   }
 
+  dimension: label {
+    label: "Address:"
+    type: string
+    sql: ${TABLE}.store ;;
+    html: <div style="width:200px; float:left;">{{store}}</div>
+      <a type="button" target="_self"  href="/dashboards/48?store_id={{store_id}}">Select Store</a>
+      <br/>
+      <a type="button" target="_self"  href="/dashboards/48?store_id=">Remove Store</a>;;
+  }
+
+  dimension: embed_label {
+    label: "Store:"
+    type: string
+    sql: ${TABLE}.store ;;
+    html: <div style="width:200px; float:left;">{{store}}</div>
+      <a type="button" target="_self"  href="/embed/dashboards/48?store_id={{store_id}}">Select Store</a>
+      <br/>
+      <a type="button" target="_self"  href="/embed/dashboards/48?store_id=">Remove Store</a>;;
+  }
+
   dimension: revenue_center {
     type: string
     sql: ${TABLE}.revenue_center ;;

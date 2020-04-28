@@ -5,7 +5,7 @@ view: v_geo_weather_impact {
       union all
       select 'rmse_historical_reduction' as key, 'rmse_historical_reduction' as label
     )
-    SELECT distinct p.client_id, p.province, p.city,  p.label AS store, dim1 AS revenue_center, dim2 as item, p.lat, p.lon, extract(month from m.date) month, store_id, lk.label meta_data_key, i.value meta_data_value
+    SELECT distinct p.client_id, p.province, p.city,  p.label AS store, dim1 AS revenue_center, dim2 as item, p.lat, p.lon, extract(month from m.date) month, store_id, i.type meta_data_type, lk.label meta_data_key, i.value meta_data_value
 FROM `development-146318.wip.wip_model_metadata_item` i
   inner join `development-146318.wip.wip_model_metadata` m on m.id=i.model_metadata_id
   inner join `development-146318.wip.wip_product` p on p.id=m.product_id
@@ -65,8 +65,10 @@ WHERE province is not null
   }
 
   dimension: store {
+    label: "Address:"
     type: string
     sql: ${TABLE}.store ;;
+    html: <div style="width:200px; float:left;">{{store}}</div><br/>;;
   }
 
   dimension: revenue_center {
@@ -82,6 +84,11 @@ WHERE province is not null
   dimension: month {
     type: number
     sql: ${TABLE}.month ;;
+  }
+
+  dimension: meta_data_type {
+    type: string
+    sql: ${TABLE}.meta_data_type ;;
   }
 
   dimension: meta_data_key {
@@ -122,9 +129,10 @@ WHERE province is not null
   }
 
   measure: average_meta_data_value {
+    label: "Weather Impact"
     type: number
     sql: avg(${TABLE}.meta_data_value);;
-    value_format: "0.00"
+    value_format: "0.00%"
   }
 
   measure: store_id_with_rmse {
