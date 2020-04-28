@@ -69,7 +69,7 @@ view: v_store {
   }
 
   dimension: embed_label {
-    label: "Address:"
+    label: "Store:"
     type: string
     sql: ${TABLE}.label ;;
     html: <div style="width:200px; float:left;">{{label}}</div>
