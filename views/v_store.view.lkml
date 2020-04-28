@@ -63,9 +63,9 @@ view: v_store {
     type: string
     sql: ${TABLE}.label ;;
     html: <div style="width:200px; float:left;">{{label}}</div>
-      <a type="button" target="_self"  href="/dashboards/49?store_id={{store_id}}">Select Store</a>
+      <a type="button" target="_self"  href="/embed/dashboards/49?store_id={{store_id}}">Select Store</a>
       <br/>
-      <a type="button" target="_self"  href="/dashboards/49?store_id=">Remove Store</a>;;
+      <a type="button" target="_self"  href="/embed/dashboards/49?store_id=">Remove Store</a>;;
   }
 
   set: drill_fields {

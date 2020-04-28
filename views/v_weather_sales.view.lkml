@@ -6,9 +6,36 @@ view: v_weather_sales {
           inner join `development-146318.wip.wip_product` p on s.product_id=p.id
           inner join `development-146318.wip.wip_weather_historical_fx_by_day` w on p.poi_id=w.poi_id and w.ts_local=s.ts_local
         where p.province is not null
-        {% if v_weather_sales.client_id._in_query %}
-        and p.client_id='{{v_weather_sales.client_id}}'
-        {% endif %};;
+             and {% condition f_client_key %} p.client_key {% endcondition %}
+             and {% condition f_province %} p.province {% endcondition %}
+             and {% condition f_city %} p.city {% endcondition %}
+             and {% condition f_revenue_center %} p.dim1 {% endcondition %}
+             and {% condition f_item %} p.dim2 {% endcondition %}
+             and {% condition f_store_id %} p.store_id {% endcondition %};;
+  }
+
+  filter: f_client_key {
+    type: string
+  }
+
+  filter: f_province {
+    type: string
+  }
+
+  filter: f_city {
+    type: string
+  }
+
+  filter: f_revenue_center {
+    type: string
+  }
+
+  filter: f_item {
+    type:  string
+  }
+
+  filter: f_store_id {
+    type:  string
   }
 
   dimension: client_id {

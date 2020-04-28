@@ -10,7 +10,36 @@ FROM `development-146318.wip.wip_model_metadata_item` i
   inner join `development-146318.wip.wip_model_metadata` m on m.id=i.model_metadata_id
   inner join `development-146318.wip.wip_product` p on p.id=m.product_id
   inner join lk on lk.key=i.key
-WHERE province is not null;;
+WHERE province is not null
+             and {% condition f_client_key %} p.client_key {% endcondition %}
+             and {% condition f_province %} p.province {% endcondition %}
+             and {% condition f_city %} p.city {% endcondition %}
+             and {% condition f_revenue_center %} p.dim1 {% endcondition %}
+             and {% condition f_item %} p.dim2 {% endcondition %}
+             and {% condition f_store_id %} p.store_id {% endcondition %};;
+  }
+  filter: f_client_key {
+    type: string
+  }
+
+  filter: f_province {
+    type: string
+  }
+
+  filter: f_city {
+    type: string
+  }
+
+  filter: f_revenue_center {
+    type: string
+  }
+
+  filter: f_item {
+    type:  string
+  }
+
+  filter: f_store_id {
+    type:  string
   }
 
   dimension: client_id {
