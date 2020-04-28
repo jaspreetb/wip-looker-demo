@@ -1,8 +1,38 @@
 view: v_store {
   derived_table: {
-    sql: SELECT distinct client_id, store_id, label AS store, province, city, label, lat, lon FROM `development-146318.wip.wip_product`;;
+    sql: SELECT distinct client_id, store_id, label AS store, province, city, label, lat, lon
+        FROM `development-146318.wip.wip_product`
+        WHERE
+             {% condition f_client_key %} client_key {% endcondition %}
+             and {% condition f_province %} province {% endcondition %}
+             and {% condition f_city %} city {% endcondition %}
+             and {% condition f_revenue_center %} dim1 {% endcondition %}
+             and {% condition f_item %} dim2 {% endcondition %}
+             and {% condition f_store_id %} store_id {% endcondition %};;
+  }
+  filter: f_client_key {
+    type: string
   }
 
+  filter: f_province {
+    type: string
+  }
+
+  filter: f_city {
+    type: string
+  }
+
+  filter: f_revenue_center {
+    type: string
+  }
+
+  filter: f_item {
+    type:  string
+  }
+
+  filter: f_store_id {
+    type:  string
+  }
   dimension: client_id {
     type: string
     sql: ${TABLE}.client_id ;;

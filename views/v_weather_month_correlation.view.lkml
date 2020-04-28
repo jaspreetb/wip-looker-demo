@@ -1,14 +1,21 @@
 view: v_weather_month_correlation {
     derived_table: {
       sql:WITH sales AS (
-            SELECT p.poi_id, date(ts_local) date, sum(value) total_sales
+            SELECT p.client_id, p.poi_id, date(ts_local) date, sum(value) total_sales
             FROM `wip.wip_business_metric_by_hour` s
                 inner join `wip.wip_product` p on s.product_id=p.id
-            where s.ts_local BETWEEN '2016-01-01' AND '2019-06-02' AND p.province in ('ON') AND p.dim1 in ('TAKEOUT') AND p.client_id='9001'
-            group by poi_id, date
+            where s.ts_local BETWEEN '2016-01-01' AND '2019-06-02'
+             and {% condition f_client_key %} p.client_key {% endcondition %}
+             and {% condition f_province %} p.province {% endcondition %}
+             and {% condition f_city %} p.city {% endcondition %}
+             and {% condition f_revenue_center %} p.dim1 {% endcondition %}
+             and {% condition f_item %} p.dim2 {% endcondition %}
+             and {% condition f_store_id %} p.store_id {% endcondition %}
+            group by client_id, poi_id, date
         ),
         dims AS (
           SELECT
+              s.client_id,
               EXTRACT(MONTH FROM s.date) AS month,
               format_date('%b', s.date) month_label,
               lk.label condition_label,
@@ -16,9 +23,10 @@ view: v_weather_month_correlation {
           FROM sales s
               inner join `wip.wip_weather_historical_fx_by_day` w on s.date=date(w.ts_local) and s.poi_id=w.poi_id
               inner join `wip.wip_lk_top_variable` lk on lk.key=w.condition_label
-          group by month, month_label, condition_label
+          group by client_id, month, month_label, condition_label
         )
         select
+          client_id,
           condition_label,
           ifnull(AVG(IF(month=1, correlation, null)),0) Jan,
           ifnull(AVG(IF(month=2, correlation, null)),0) Feb,
@@ -33,7 +41,31 @@ view: v_weather_month_correlation {
           ifnull(AVG(IF(month=11, correlation, null)),0) Nov,
           ifnull(AVG(IF(month=12, correlation, null)),0) Dec
         from dims
-        group by condition_label;;
+        group by client_id, condition_label;;
+    }
+
+    filter: f_client_key {
+      type: string
+    }
+
+    filter: f_province {
+      type: string
+    }
+
+    filter: f_city {
+      type: string
+    }
+
+    filter: f_revenue_center {
+      type: string
+    }
+
+    filter: f_item {
+      type:  string
+    }
+
+    filter: f_store_id {
+      type:  string
     }
 
     dimension: condition_label {
