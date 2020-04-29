@@ -154,20 +154,21 @@ where p.province is not null
   }
 
   measure: rmse_predict_actual {
+    label: "RMSE Improved Error (Actual vs. Prediction)"
     type: number
     sql: SQRT(AVG((${TABLE}.predicted_value-${TABLE}.actual_value)*(${TABLE}.predicted_value-${TABLE}.actual_value))) ;;
-    value_format: "$#,##0"
+    value_format: "#,##0"
   }
 
   measure: rmse_historical_actual {
     type: number
     sql: SQRT(AVG((${TABLE}.historical_sales-${TABLE}.actual_value)*(${TABLE}.historical_sales-${TABLE}.actual_value))) ;;
-    value_format: "$#,##0"
+    value_format: "#,##0"
   }
 
   measure: mae {
     type: number
     sql: AVG(ABS((${TABLE}.predicted_value-${TABLE}.actual_value))) ;;
-    value_format: "$#,##0"
+    value_format: "#,##0"
   }
 }
