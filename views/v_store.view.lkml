@@ -68,7 +68,7 @@ view: v_store {
       <a type="button" target="_self"  href="/dashboards/49?store_id=">Remove Store</a>;;
   }
 
-  dimension: embed_label {
+  dimension: embed_label_49 {
     label: "Store:"
     type: string
     sql: ${TABLE}.label ;;
@@ -76,6 +76,16 @@ view: v_store {
       <a type="button" target="_self"  href="/embed/dashboards/49?store_id={{store_id}}">Select Store</a>
       <br/>
       <a type="button" target="_self"  href="/embed/dashboards/49?store_id=">Remove Store</a>;;
+  }
+
+  dimension: embed_label_50 {
+    label: "Store:"
+    type: string
+    sql: ${TABLE}.label ;;
+    html: <div style="width:200px; float:left;">{{label}}</div>
+      <a type="button" target="_self"  href="/embed/dashboards/50?store_id={{store_id}}">Select Store</a>
+      <br/>
+      <a type="button" target="_self"  href="/embed/dashboards/50?store_id=">Remove Store</a>;;
   }
 
   set: drill_fields {
