@@ -83,6 +83,15 @@ view: v_weather_sales {
     sql: ${TABLE}.condition_label ;;
   }
 
+  dimension: weather_condition_label {
+    type:  string
+    sql: case when ${TABLE}.condition_label = 'temp' then 'Temperature'
+        when  ${TABLE}.condition_label = 'precip' then 'Preciptation'
+        when ${TABLE}.condition_label = 'relHum' then 'Humidity'
+        when ${TABLE}.condition_label = 'windSpd' then 'Wind Speed'
+        else ${TABLE}.condition_label end;;
+  }
+
   measure: avg_weather_value {
     type: number
     sql: avg(${TABLE}.condition_value) ;;
