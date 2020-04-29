@@ -5,7 +5,7 @@ view: v_geo_weather_impact {
       union all
       select 'rmse_historical_reduction' as key, 'rmse_historical_reduction' as label
     )
-    SELECT distinct p.client_id, p.province, p.city,  p.label AS store, dim1 AS revenue_center, dim2 as item, p.lat, p.lon, extract(month from m.date) month, store_id, i.type meta_data_type, lk.label meta_data_key, i.value meta_data_value
+    SELECT distinct p.client_id, p.province, p.city,  p.label AS store, dim1 AS revenue_center, dim2 as item, p.lat, p.lon, extract(month from m.date) month, FORMAT_DATETIME("%b", datetime(m.date)) month_name, store_id, i.type meta_data_type, lk.label meta_data_key, i.value meta_data_value
 FROM `development-146318.wip.wip_model_metadata_item` i
   inner join `development-146318.wip.wip_model_metadata` m on m.id=i.model_metadata_id
   inner join `development-146318.wip.wip_product` p on p.id=m.product_id
@@ -103,6 +103,11 @@ WHERE province is not null
   dimension: month {
     type: number
     sql: ${TABLE}.month ;;
+  }
+
+  dimension: month_name {
+    type: string
+    sql: ${TABLE}.month_name ;;
   }
 
   dimension: meta_data_type {
