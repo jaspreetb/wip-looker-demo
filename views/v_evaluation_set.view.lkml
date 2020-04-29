@@ -80,6 +80,7 @@ where p.province is not null
     type: string
     sql: ${TABLE}.store ;;
     html: <div style="width:200px; float:left;">{{store}}</div>
+      <br/>
       <a type="button" target="_self"  href="/dashboards/48?store_id={{store_id}}">Select Store</a>
       <br/>
       <a type="button" target="_self"  href="/dashboards/48?store_id=">Remove Store</a>;;
@@ -90,6 +91,7 @@ where p.province is not null
     type: string
     sql: ${TABLE}.store ;;
     html: <div style="width:200px; float:left;">{{store}}</div>
+      <br/>
       <a type="button" target="_self"  href="/embed/dashboards/48?store_id={{store_id}}">Select Store</a>
       <br/>
       <a type="button" target="_self"  href="/embed/dashboards/48?store_id=">Remove Store</a>;;
