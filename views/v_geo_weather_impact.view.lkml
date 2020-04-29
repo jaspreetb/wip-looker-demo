@@ -50,7 +50,6 @@ WHERE province is not null
   dimension: province {
     type: string
     sql: ${TABLE}.province ;;
-    drill_fields: [city,revenue_center,item]
   }
 
   dimension: city {
