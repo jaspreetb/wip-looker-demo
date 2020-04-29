@@ -151,7 +151,7 @@ WHERE province is not null
     label: "Weather Impact"
     type: number
     sql: avg(${TABLE}.meta_data_value);;
-    value_format: "#,##0"
+    value_format: "#,##0.00"
   }
 
   measure: store_id_with_rmse {
