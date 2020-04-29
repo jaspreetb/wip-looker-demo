@@ -86,7 +86,7 @@ view: v_weather_sales {
   dimension: weather_condition_label {
     type:  string
     sql: case when ${TABLE}.condition_label = 'temp' then 'Temperature'
-        when  ${TABLE}.condition_label = 'precip' then 'Preciptation'
+        when  ${TABLE}.condition_label = 'precip' then 'Precipitation'
         when ${TABLE}.condition_label = 'relHum' then 'Relative Humidity'
         when ${TABLE}.condition_label = 'windSpd' then 'Wind Speed'
         else ${TABLE}.condition_label end;;
