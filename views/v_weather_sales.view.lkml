@@ -2,7 +2,7 @@ view: v_weather_sales {
   derived_table: {
     sql: SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, s.ts_local AS date,
           w.condition_label, w.condition_value, s.value sales_value
-        FROM `development-146318.wip.wip_business_metric_by_hour` s
+        FROM `development-146318.wip.wip_business_metric_by_day` s
           inner join `development-146318.wip.wip_product` p on s.product_id=p.id
           inner join `development-146318.wip.wip_weather_historical_fx_by_day` w on p.poi_id=w.poi_id and w.ts_local=s.ts_local
         where p.province is not null
@@ -87,7 +87,7 @@ view: v_weather_sales {
     type:  string
     sql: case when ${TABLE}.condition_label = 'temp' then 'Temperature'
         when  ${TABLE}.condition_label = 'precip' then 'Preciptation'
-        when ${TABLE}.condition_label = 'relHum' then 'Humidity'
+        when ${TABLE}.condition_label = 'relHum' then 'Relative Humidity'
         when ${TABLE}.condition_label = 'windSpd' then 'Wind Speed'
         else ${TABLE}.condition_label end;;
   }
@@ -95,7 +95,7 @@ view: v_weather_sales {
   measure: avg_weather_value {
     type: number
     sql: avg(${TABLE}.condition_value) ;;
-    value_format: "$#,##0"
+    value_format: "#,##0"
   }
 
   measure: total_sales {
