@@ -143,6 +143,7 @@ where p.province is not null
   measure: total_predicted_value {
     type: number
     sql: sum(${TABLE}.predicted_value) ;;
+    value_format: "$#,##0"
   }
 
   measure: total_actual_sales {

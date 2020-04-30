@@ -1,9 +1,8 @@
 view: v_sales_forecast {
   derived_table: {
     sql: WITH sales_by_day AS (
-  SELECT distinct product_id, date(ts_local) date, sum(value) total_value
-  FROM `development-146318.wip.wip_business_metric_by_hour`
-  group by product_id, date
+  SELECT distinct product_id, ts_local date, value total_value
+  FROM `development-146318.wip.wip_business_metric_by_day`
 ),
 historical AS (
   SELECT distinct s.product_id, date(f.ts_local) date, sum(total_value) historical_sales
@@ -30,6 +29,11 @@ where p.province is not null
              and {% condition f_revenue_center %} p.dim1 {% endcondition %}
              and {% condition f_item %} p.dim2 {% endcondition %}
              and {% condition f_store_id %} p.store_id {% endcondition %}
+            {% if v_sales_forecast.f_item._in_query %}
+            and p.dim2 is not null and p.dim1 is null
+            {% else %}
+            and p.dim1 is not null and p.dim2 is null
+            {% endif %}
 group by client_id, province, city, store_id, store, revenue_center, item, date, s.date, predicted_value, historical_sales, actual_sales;;
   }
 

@@ -11,7 +11,12 @@ view: v_weather_sales {
              and {% condition f_city %} p.city {% endcondition %}
              and {% condition f_revenue_center %} p.dim1 {% endcondition %}
              and {% condition f_item %} p.dim2 {% endcondition %}
-             and {% condition f_store_id %} p.store_id {% endcondition %};;
+             and {% condition f_store_id %} p.store_id {% endcondition %}
+            {% if v_weather_sales.f_item._in_query %}
+            and p.dim2 is not null and p.dim1 is null
+            {% else %}
+            and p.dim1 is not null and p.dim2 is null
+            {% endif %};;
   }
 
   filter: f_client_key {
