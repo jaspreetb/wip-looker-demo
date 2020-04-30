@@ -56,7 +56,10 @@ WHERE province is not null
   dimension: province {
     type: string
     sql: ${TABLE}.province ;;
-    drill_fields: [city, revenue_center, item]
+    link: {
+      label: "by Province by City"
+      url:"/looks/31?&f[province]={{ value }}"
+    }
   }
 
   dimension: city {

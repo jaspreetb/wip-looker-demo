@@ -18,7 +18,8 @@ forecast AS (
   group by product_id, date
 )
 SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, timestamp(s.date) date,
-  s.predicted_value, h.historical_sales, s.actual_sales
+  s.predicted_value, h.historical_sales, s.actual_sales,
+  sum(predicted_value) over (partition by s.date) daily_total_predicted_value
 FROM forecast s
   inner join `development-146318.wip.wip_product` p on s.product_id=p.id
   left join historical h on h.date=s.date and h.product_id=s.product_id
@@ -29,7 +30,7 @@ where p.province is not null
              and {% condition f_revenue_center %} p.dim1 {% endcondition %}
              and {% condition f_item %} p.dim2 {% endcondition %}
              and {% condition f_store_id %} p.store_id {% endcondition %}
-;;
+group by client_id, province, city, store_id, store, revenue_center, item, date, s.date, predicted_value, historical_sales, actual_sales;;
   }
 
   filter: f_client_key {
@@ -109,7 +110,7 @@ where p.province is not null
 
   measure: average_predicted_value {
     type: number
-    sql: avg(${TABLE}.predicted_value) ;;
+    sql: avg(${TABLE}.daily_total_predicted_value) ;;
     value_format: "$#,##0"
   }
 
