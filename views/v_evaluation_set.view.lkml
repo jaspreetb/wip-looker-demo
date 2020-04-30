@@ -1,10 +1,10 @@
 view: v_evaluation_set {
   derived_table: {
     sql: WITH historical AS (
-  SELECT distinct s.product_id, date(f.ts_local) date, sum(f.actual_value) historical_sales
+  SELECT distinct s.product_id, date(f.ts_local) date, date(DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)) historical_date, sum(f.actual_value) historical_sales
   FROM `development-146318.wip.wip_evaluation_set` f
     inner join `development-146318.wip.wip_evaluation_set` s on s.product_id=f.product_id and DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)=cast(s.ts_local as datetime)
-  group by s.product_id, date
+  group by s.product_id, f.ts_local
 ),
 forecast AS (
   SELECT distinct product_id, date(ts_local) date, sum(predicted_value) predicted_value, sum(actual_value) actual_value
@@ -13,7 +13,7 @@ forecast AS (
   group by product_id, date
 )
 SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim1_label revenue_center_name, dim2 as item, dim2_label item_name, timestamp(s.date) date,
-  s.predicted_value, h.historical_sales, s.actual_value, p.lat, p.lon,
+  s.predicted_value, h.historical_sales, s.actual_value, p.lat, p.lon, h.historical_date
 FROM forecast s
   inner join `development-146318.wip.wip_product` p on s.product_id=p.id
   left join historical h on h.date=s.date and h.product_id=s.product_id
@@ -124,6 +124,11 @@ where p.province is not null
     sql: ${TABLE}.date ;;
   }
 
+  dimension: historical_date {
+    type: date
+    sql: ${TABLE}.historical_date ;;
+  }
+
   dimension: lat {
     type: number
     sql: ${TABLE}.lat ;;
@@ -156,6 +161,9 @@ where p.province is not null
     type: number
     sql: sum(${TABLE}.historical_sales) ;;
     value_format: "$#,##0"
+    html: <div>
+            Historical date: {{historical_date}}
+          </div> ;;
   }
 
   measure: rmse_predict_actual {
