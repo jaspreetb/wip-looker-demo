@@ -16,7 +16,9 @@ WHERE province is not null
              and {% condition f_city %} p.city {% endcondition %}
              and {% condition f_revenue_center %} p.dim1 {% endcondition %}
              and {% condition f_item %} p.dim2 {% endcondition %}
-             and {% condition f_store_id %} p.store_id {% endcondition %};;
+             and {% condition f_store_id %} p.store_id {% endcondition %}
+             and {% condition f_month %} extract(month from m.date) {% endcondition %}
+            ;;
   }
   filter: f_client_key {
     type: string
@@ -40,6 +42,10 @@ WHERE province is not null
 
   filter: f_store_id {
     type:  string
+  }
+
+  filter: f_month {
+    type:  number
   }
 
   dimension: client_id {
