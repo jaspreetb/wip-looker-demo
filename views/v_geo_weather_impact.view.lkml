@@ -169,6 +169,13 @@ WHERE province is not null
     value_format: "#,##0.00"
   }
 
+  measure: average_rmse {
+    label: "Weather Impact"
+    type: number
+    sql: avg(case when ${TABLE}.meta_data_key = 'rmse_historical_reduction' and ${TABLE}.meta_data_value >= 0.1 then ${TABLE}.meta_data_value else null end);;
+    value_format: "0.00%"
+  }
+
   measure: store_id_with_rmse {
     type: number
     sql: case when ${TABLE}.meta_data_key = 'rmse_historical_reduction' then ${TABLE}.store_id else null end;;
@@ -178,6 +185,9 @@ WHERE province is not null
     type: number
     sql: count(${store_id_ge_10_percent}) / count(${store_id}) ;;
     value_format: "0.00%"
+    html: <div>
+            Weather Impact: {{average_rmse._rendered_value}}
+          </div> ;;
   }
 
   measure: store_percentage_ge_5 {
