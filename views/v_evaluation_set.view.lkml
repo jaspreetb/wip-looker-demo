@@ -157,13 +157,22 @@ where p.province is not null
     value_format: "$#,##0"
   }
 
+  measure: total_historical_sales_value {
+    type: number
+    sql: sum(${TABLE}.historical_sales) ;;
+    value_format: "$#,##0"
+  }
+
   measure: total_historical_sales {
+    label: "Last Year: "
     type: number
     sql: sum(${TABLE}.historical_sales) ;;
     value_format: "$#,##0"
     html: <div>
-            Historical date: {{historical_date}}
-          </div> ;;
+            {{historical_date}}
+            <br/>
+            Sales: {{total_historical_sales_value._rendered_value}}
+          </div>;;
   }
 
   measure: rmse_predict_actual {
