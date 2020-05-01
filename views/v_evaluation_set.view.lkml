@@ -3,7 +3,7 @@ view: v_evaluation_set {
     sql: WITH historical AS (
   SELECT distinct s.product_id, date(f.ts_local) date, date(DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)) historical_date, sum(f.actual_value) historical_sales
   FROM `development-146318.wip.wip_evaluation_set` f
-    inner join `development-146318.wip.wip_evaluation_set` s on s.product_id=f.product_id and DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)=cast(s.ts_local as datetime)
+    left join `development-146318.wip.wip_evaluation_set` s on s.product_id=f.product_id and DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)=cast(s.ts_local as datetime)
   group by s.product_id, f.ts_local
 ),
 forecast AS (
