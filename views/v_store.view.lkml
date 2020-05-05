@@ -77,10 +77,6 @@ view: v_store {
       label: "Select Store"
       url: "/embed/dashboards/49?store_id={{store_id}}"
     }
-    link: {
-      label: "Remove Store"
-      url: "/embed/dashboards/49?store_id="
-    }
   }
 
   dimension: embed_label_50 {
@@ -90,10 +86,6 @@ view: v_store {
     link: {
       label: "Select Store"
       url: "/embed/dashboards/49?store_id={{store_id}}"
-    }
-    link: {
-      label: "Remove Store"
-      url: "/embed/dashboards/49?store_id="
     }
   }
 

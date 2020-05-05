@@ -99,10 +99,6 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
       label: "Select Store"
       url: "/embed/dashboards/47?store_id={{store_id}}"
     }
-    link: {
-      label: "Remove Store"
-      url: "/embed/dashboards/47?store_id="
-    }
   }
 
   dimension: embed_label {
@@ -112,10 +108,6 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
     link: {
       label: "Select Store"
       url: "/embed/dashboards/47?store_id={{store_id}}"
-    }
-    link: {
-      label: "Remove Store"
-      url: "/embed/dashboards/47?store_id="
     }
   }
 
