@@ -8,6 +8,7 @@ historical AS (
   SELECT distinct s.product_id, date(f.ts_local) date, sum(total_value) historical_sales
   FROM `development-146318.wip.wip_forecast` f
     inner join sales_by_day s on s.product_id=f.product_id and DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)=cast(s.date as datetime)
+  where f.disable_weather=false
   group by s.product_id, date
 ),
 forecast AS (

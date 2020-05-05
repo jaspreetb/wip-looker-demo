@@ -51,3 +51,5 @@ explore: v_market_index_pivot {}
 explore: v_wip_product {}
 
 explore: v_wip_time_range {}
+
+explore: v_rmse_deduction_by_store {}
