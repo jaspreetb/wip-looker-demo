@@ -73,11 +73,15 @@ view: v_store {
     label: "Store:"
     type: string
     sql: ${TABLE}.label ;;
-    html: <div style="width:200px; float:left;">{{label}}</div>
-      <br/>
-      <a type="button" target="_self"  href="/embed/dashboards/49?store_id={{store_id}}">Select Store</a>
-      <br/>
-      <a type="button" target="_self"  href="/embed/dashboards/49?store_id=">Remove Store</a>;;
+    #html: <div style="width:200px; float:left;">{{label}}</div>
+    #  <br/>
+    #  <a type="button" target="_self"  href="/embed/dashboards/49?store_id={{store_id}}">Select Store</a>
+    #  <br/>
+    #  <a type="button" target="_self"  href="/embed/dashboards/49?store_id=">Remove Store</a>;;
+    link: {
+      label: "Select Store"
+      url: "/embed/dashboards/49?store_id={{store_id}}"
+    }
   }
 
   dimension: embed_label_50 {

@@ -163,15 +163,14 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
     sql: ${TABLE}.meta_data_value;;
   }
 
-  dimension: store_id_ge_10_percent {
+  dimension: revenue_center_ge_10_percent {
     type: number
-    sql: case when ${TABLE}.avg_rmse_store >= 0.1 then ${TABLE}.store_id else null end;;
-      #when ${TABLE}.meta_data_key = 'rmse_historical_reduction' and ${TABLE}.meta_data_value >= 0.1 then ${TABLE}.store_id else null end;;
+    sql: case when ${TABLE}.meta_data_key = 'rmse_historical_reduction' and ${TABLE}.meta_data_value >= 0.1 then ${TABLE}.revenue_center else null end;;
   }
 
-  dimension: store_id_ge_5_percent {
+  dimension: item_ge_10_percent {
     type: number
-    sql: case when ${TABLE}.avg_rmse_store >= 0.05 then ${TABLE}.store_id else null end;;
+    sql: case when ${TABLE}.meta_data_key = 'rmse_historical_reduction' and ${TABLE}.meta_data_value >= 0.1 then ${TABLE}.item else null end;;
   }
 
   measure: average_meta_data_value {
@@ -195,17 +194,15 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
 
   measure: store_percentage_ge_10 {
     type: number
-    sql: count(distinct ${store_id_ge_10_percent}) / count(distinct ${store_id}) ;;
+    sql: {% if v_geo_weather_impact.f_item._in_query %}
+        SAFE_DIVIDE(count(${item_ge_10_percent}),count(${item}))
+        {% else %}
+        SAFE_DIVIDE(count(${revenue_center_ge_10_percent}), count(${revenue_center}))
+        {% endif %}
+        ;;
     value_format: "0.00%"
     html: <div>
             Weather Impact: {{average_rmse._rendered_value}}
           </div> ;;
   }
-
-  measure: store_percentage_ge_5 {
-    type: number
-    sql: count(distinct ${store_id_ge_5_percent}) / count(distinct ${store_id}) ;;
-    value_format: "0.00%"
-  }
-
 }
