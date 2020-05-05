@@ -72,7 +72,6 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
-    drill_fields: [revenue_center, item]
   }
 
   dimension: store_id {
@@ -122,12 +121,14 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
 
   dimension: revenue_center {
     type: string
-    sql: ${TABLE}.revenue_center ;;
+    sql: case when ${TABLE}.revenue_center is not null then ${TABLE}.revenue_center else '' end;;
+    drill_fields: [city]
   }
 
   dimension: item {
     type: string
-    sql: ${TABLE}.item ;;
+    sql: case when ${TABLE}.item is not null then ${TABLE}.item else '' end;;
+    drill_fields: [city]
   }
 
   dimension: month {
@@ -138,6 +139,7 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
   dimension: month_name {
     type: string
     sql: ${TABLE}.month_name ;;
+    drill_fields: [city]
   }
 
   dimension: meta_data_type {
@@ -182,7 +184,7 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
   }
 
   measure: average_meta_data_value {
-    label: "Weather Impact"
+    label: "Other Weather Impact"
     type: number
     sql: avg(${TABLE}.meta_data_value);;
     value_format: "#,##0.00"
@@ -191,7 +193,7 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
   measure: average_rmse {
     label: "Weather Impact"
     type: number
-    sql: avg(case when ${TABLE}.meta_data_key = 'rmse_historical_reduction' then ${TABLE}.meta_data_value else null end);;
+    sql: avg(case when ${TABLE}.meta_data_key = 'rmse_historical_reduction' and ${TABLE}.meta_data_value >= 0.1 then ${TABLE}.meta_data_value else null end);;
     value_format: "0.00%"
   }
 
@@ -206,8 +208,7 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
         SAFE_DIVIDE(count(${item_ge_10_percent}),count(${item}))
         {% else %}
         SAFE_DIVIDE(count(${revenue_center_ge_10_percent}), count(${revenue_center}))
-        {% endif %}
-        ;;
+        {% endif %};;
     value_format: "0.00%"
     html: <div>
             Weather Impact: {{average_rmse._rendered_value}}
