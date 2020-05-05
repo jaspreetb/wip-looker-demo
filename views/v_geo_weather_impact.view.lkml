@@ -114,13 +114,13 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
   dimension: revenue_center {
     type: string
     sql: case when ${TABLE}.revenue_center is not null then ${TABLE}.revenue_center else '' end;;
-    drill_fields: [city]
+    #drill_fields: [city]
   }
 
   dimension: item {
     type: string
     sql: case when ${TABLE}.item is not null then ${TABLE}.item else '' end;;
-    drill_fields: [city]
+    #drill_fields: [city]
   }
 
   dimension: month {
