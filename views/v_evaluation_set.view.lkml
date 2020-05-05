@@ -80,24 +80,28 @@ view: v_evaluation_set {
     label: "Address:"
     type: string
     sql: ${TABLE}.store ;;
-    html: <div style="width:200px; float:left;">{{store}}</div>
-      <br/>
-      <br/>
-      <a type="button" target="_self"  href="/dashboards/48?store_id={{store_id}}">Select Store</a>
-      <br/>
-      <a type="button" target="_self"  href="/dashboards/48?store_id=">Remove Store</a>;;
+    link: {
+      label: "Select Store"
+      url: "/embed/dashboards/48?store_id={{store_id}}"
+    }
+    link: {
+      label: "Remove Store"
+      url: "/embed/dashboards/48?store_id="
+    }
   }
 
   dimension: embed_label {
     label: "Store:"
     type: string
     sql: ${TABLE}.store ;;
-    html: <div style="width:200px; float:left;">{{store}}</div>
-      <br/>
-      <br/>
-      <a type="button" target="_self"  href="/embed/dashboards/48?store_id={{store_id}}">Select Store</a>
-      <br/>
-      <a type="button" target="_self"  href="/embed/dashboards/48?store_id=">Remove Store</a>;;
+    link: {
+      label: "Select Store"
+      url: "/embed/dashboards/48?store_id={{store_id}}"
+    }
+    link: {
+      label: "Remove Store"
+      url: "/embed/dashboards/48?store_id="
+    }
   }
 
   dimension: revenue_center {
