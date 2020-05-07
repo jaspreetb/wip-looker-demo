@@ -1,7 +1,7 @@
 view: v_geo_weather_impact {
   derived_table: {
     sql: WITH lk AS (
-      select key, label from `development-146318.wip.wip_lk_top_variable`
+      select key, label_en label from `development-146318.wip.wip_lk_weather`
       union all
       select 'rmse_historical_reduction' as key, 'rmse_historical_reduction' as label
     )

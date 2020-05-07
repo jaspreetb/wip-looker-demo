@@ -52,4 +52,4 @@ explore: v_wip_product {}
 
 explore: v_wip_time_range {}
 
-explore: v_rmse_deduction_by_store {}
+explore: v_rmse_reduction_monthly {}
