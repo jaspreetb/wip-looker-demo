@@ -1,11 +1,18 @@
 view: v_model_metadata_kpi {
   derived_table: {
 
-    sql: SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, cast(m.date AS timestamp) date, i.type, i.key, lk.label AS key_label, i.value
+    sql:with lk as (
+      select key, label_en label
+      from `development-146318.wip.wip_lk_weather`
+      union all
+      select ws_key key, label_en label
+      from `development-146318.wip.wip_lk_weather`
+    )
+    SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, cast(m.date AS timestamp) date, i.type, i.key, lk.label AS key_label, i.value
 FROM `development-146318.wip.wip_model_metadata` m
   inner join `development-146318.wip.wip_model_metadata_item` i on i.model_metadata_id=m.id
   inner join `development-146318.wip.wip_product` p on m.product_id=p.id
-  inner join `development-146318.wip.wip_lk_top_variable` lk on lk.key=i.key
+  inner join lk on lk.key=i.key
 where p.province is not null
              and {% condition f_client_key %} p.client_key {% endcondition %}
              and {% condition f_province %} p.province {% endcondition %}
