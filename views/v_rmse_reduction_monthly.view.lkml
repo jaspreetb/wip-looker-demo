@@ -128,6 +128,7 @@ group by product_id, province, city,store, revenue_center, item, lat, lon, store
   dimension: month_name {
     type: string
     sql: ${TABLE}.month_name ;;
+    drill_fields: [city]
   }
 
   dimension: lat {

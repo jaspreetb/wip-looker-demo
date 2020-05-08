@@ -17,14 +17,19 @@ view: v_evaluation_set {
             s.predicted_value, h.historical_sales, s.actual_value, p.lat, p.lon, h.historical_date
           FROM forecast s
             inner join `development-146318.wip.wip_product` p on s.product_id=p.id
-            left join historical h on h.date=s.date and h.product_id=s.product_id
+            right join historical h on h.date=s.date and h.product_id=s.product_id
           where p.province is not null
                        and {% condition f_client_key %} p.client_key {% endcondition %}
                        and {% condition f_province %} p.province {% endcondition %}
                        and {% condition f_city %} p.city {% endcondition %}
                        and {% condition f_revenue_center %} p.dim1 {% endcondition %}
                        and {% condition f_item %} p.dim2 {% endcondition %}
-                       and {% condition f_store_id %} p.store_id {% endcondition %};;
+                       and {% condition f_store_id %} p.store_id {% endcondition %}
+            {% if v_evaluation_set.f_item._in_query %}
+            and p.dim2 is not null and p.dim1 is null
+            {% else %}
+            and p.dim1 is not null and p.dim2 is null
+            {% endif %};;
   }
 
   filter: f_client_key {
