@@ -1,7 +1,6 @@
 view: v_evaluation_set {
   derived_table: {
-    sql:
-          WITH values AS (
+    sql: WITH values AS (
             SELECT distinct s.product_id, date(f.ts_local) date, date(DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)) historical_date, sum(s.value) historical_sales, sum(f.predicted_value) predicted_value, sum(f.actual_value) actual_value
             FROM `development-146318.wip.wip_evaluation_set` f
               left join `development-146318.wip.wip_business_metric_by_day` s on s.product_id=f.product_id and DATETIME_ADD(cast(f.ts_local as datetime), interval -1 year)=cast(s.ts_local as datetime)

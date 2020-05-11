@@ -85,7 +85,7 @@ view: v_store {
     sql: ${TABLE}.label ;;
     link: {
       label: "Select Store"
-      url: "/embed/dashboards/49?store_id={{store_id}}"
+      url: "/embed/dashboards/50?store_id={{store_id}}"
     }
   }
 
