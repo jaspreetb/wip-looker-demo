@@ -94,6 +94,10 @@ view: v_weather_sales {
         when  ${TABLE}.condition_label = 'precip' then 'Precipitation'
         when ${TABLE}.condition_label = 'relHum' then 'Relative Humidity'
         when ${TABLE}.condition_label = 'windSpd' then 'Wind Speed'
+        when ${TABLE}.condition_label = 'cldCvr' then 'Cloud Coverage'
+        when ${TABLE}.condition_label = 'feelsLike' then 'Feels Like'
+        when ${TABLE}.condition_label = 'radSolar' then 'Solar Radiation'
+        when ${TABLE}.condition_label = 'snowfall' then 'Snow Fall'
         else ${TABLE}.condition_label end;;
   }
 
