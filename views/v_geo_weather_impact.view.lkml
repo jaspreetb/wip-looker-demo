@@ -180,10 +180,11 @@ group by client_id, province, city, store, revenue_center, item, lat, lon, month
   }
 
   measure: average_meta_data_value {
-    label: "Other Weather Impact"
+    label: " "
     type: number
     sql: avg(${TABLE}.meta_data_value);;
     value_format: "#,##0.00"
+    html: <div>&nbsp;</div> ;;
   }
 
   measure: average_rmse {

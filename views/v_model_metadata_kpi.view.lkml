@@ -108,8 +108,10 @@ where p.province is not null
   }
 
   measure: average_value {
+    label: " "
     type: number
     sql: avg(${TABLE}.value) ;;
     value_format: "0.00"
+    html: <div>&nbsp;</div> ;;
   }
 }

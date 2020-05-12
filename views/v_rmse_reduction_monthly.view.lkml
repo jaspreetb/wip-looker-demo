@@ -63,6 +63,7 @@ group by product_id, province, city,store, revenue_center, item, lat, lon, store
   dimension: province {
     type: string
     sql: ${TABLE}.province ;;
+    drill_fields: [city]
   }
 
   dimension: city {
