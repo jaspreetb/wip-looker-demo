@@ -63,10 +63,6 @@ group by product_id, province, city,store, revenue_center, item, lat, lon, store
   dimension: province {
     type: string
     sql: ${TABLE}.province ;;
-    link: {
-      label: "by Province by City"
-      url:"/looks/31?&f[province]={{ value }}"
-    }
   }
 
   dimension: city {
@@ -128,7 +124,10 @@ group by product_id, province, city,store, revenue_center, item, lat, lon, store
   dimension: month_name {
     type: string
     sql: ${TABLE}.month_name ;;
-    drill_fields: [city]
+    link: {
+      label: "by City"
+      url:"/embed/dashboards/54?client_key={{ _filters['v_rmse_reduction_monthly.f_client_key'] | url_encode}}&month_name={{value}}"
+    }
   }
 
   dimension: lat {
