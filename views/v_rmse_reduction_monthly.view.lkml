@@ -152,7 +152,7 @@ group by product_id, province, city,store, revenue_center, item, lat, lon, store
 
   measure: count_rmse_ge_10_per {
     type: number
-    sql: count(case when ${TABLE}.rmse_reduction >= 0.1 then ${TABLE}.product_id else null end);;
+    sql: count(case when ${TABLE}.rmse_reduction >= 0.1 then ${TABLE}.store_id else null end);;
   }
 
   measure: count {
@@ -162,7 +162,7 @@ group by product_id, province, city,store, revenue_center, item, lat, lon, store
 
   measure: store_percentage_ge_10 {
     type: number
-    sql: SAFE_DIVIDE(count(case when ${TABLE}.rmse_reduction >= 0.1 then ${TABLE}.product_id else null end), count(${TABLE}.product_id)) ;;
+    sql: SAFE_DIVIDE(count(distinct case when ${TABLE}.rmse_reduction >= 0.1 then ${TABLE}.store_id else null end), count(distinct ${TABLE}.store_id)) ;;
     value_format: "0.00%"
     html: <div>
             Percentage: {{store_percentage_ge_10._rendered_value}}

@@ -1,26 +1,27 @@
-view: v_weather_sales {
+view: v_weather_sales_hour {
   derived_table: {
     sql: SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, s.ts_local AS ts,
-    w.condition_label, w.condition_value, s.value sales_value
-    FROM `development-146318.wip.wip_business_metric_by_hour` s
-    inner join `development-146318.wip.wip_product` p on s.product_id=p.id
-    left join `development-146318.wip.wip_weather_by_hr` w on p.poi_id=w.poi_id and w.ts_local=s.ts_local
-    where p.province is not null
-    and {% condition f_client_key %} p.client_key {% endcondition %}
-    and {% condition f_province %} p.province {% endcondition %}
-    and {% condition f_city %} p.city {% endcondition %}
-    and {% condition f_revenue_center %} p.dim1 {% endcondition %}
-    and {% condition f_item %} p.dim2 {% endcondition %}
-    and {% condition f_store_id %} p.store_id {% endcondition %}
-    {% if v_weather_sales.f_item._in_query %}
-    and p.dim2 is not null and p.dim1 is null
-    {% else %}
-    and p.dim1 is not null and p.dim2 is null
-    {% endif %}
-    {% if v_weather_sales.f_date_range._in_query %}
-    and s.ts_local between {% date_start f_date_range %} and {% date_end f_date_range %}
-    {% endif %}
-    ;;
+          w.condition_label, w.condition_value, s.value sales_value
+        FROM `development-146318.wip.wip_business_metric_by_hour` s
+          inner join `development-146318.wip.wip_product` p on s.product_id=p.id
+          left join `development-146318.wip.wip_weather_by_hr` w on p.poi_id=w.poi_id and w.ts_local=s.ts_local
+        where p.province is not null
+             and {% condition f_client_key %} p.client_key {% endcondition %}
+             and {% condition f_province %} p.province {% endcondition %}
+             and {% condition f_city %} p.city {% endcondition %}
+             and {% condition f_revenue_center %} p.dim1 {% endcondition %}
+             and {% condition f_item %} p.dim2 {% endcondition %}
+             and {% condition f_store_id %} p.store_id {% endcondition %}
+            {% if v_weather_sales_hour.f_item._in_query %}
+            and p.dim2 is not null and p.dim1 is null
+            {% else %}
+            and p.dim1 is not null and p.dim2 is null
+            {% endif %}
+            {% if v_weather_sales_hour.f_day._in_query %}
+            and s.ts_local between {% date_start f_day %} and {% date_end f_day %}
+            --and w.ts_local between {% date_start f_day %} and {% date_end f_day %}
+            {% endif %}
+            ;;
   }
 
   filter: f_client_key {
@@ -47,8 +48,8 @@ view: v_weather_sales {
     type:  string
   }
 
-  filter: f_date_range {
-    type:  date
+  filter: f_day {
+    type: date
   }
 
   dimension: client_id {
