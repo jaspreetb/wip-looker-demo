@@ -4,7 +4,7 @@ view: v_weather_sales {
     w.condition_label, w.condition_value, s.value sales_value
     FROM `development-146318.wip.wip_business_metric_by_hour` s
     inner join `development-146318.wip.wip_product` p on s.product_id=p.id
-    left join
+    right join
        {% if v_weather_sales.f_weather_type == 'fx' %}
       `development-146318.wip.wip_weather_historical_fx_by_hr`
       {% else %}
@@ -24,7 +24,7 @@ view: v_weather_sales {
     and p.dim1 is not null and p.dim2 is null
     {% endif %}
     {% if v_weather_sales.f_date_range._in_query %}
-    and s.ts_local between {% date_start f_date_range %} and {% date_end f_date_range %}
+    and w.ts_local between {% date_start f_date_range %} and {% date_end f_date_range %}
     {% endif %}
     ;;
   }
