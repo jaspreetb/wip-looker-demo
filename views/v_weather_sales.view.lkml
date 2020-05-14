@@ -89,7 +89,10 @@ view: v_weather_sales {
   dimension: date {
     type: date
     sql: ${TABLE}.ts ;;
-    drill_fields: [hour]
+    link: {
+      label: "By Hour"
+      url: "/embed/dashboards/55?date_range={{value}}&weather_condition={{ _filters['weather_condition'] | url_encode }}&client_key={{ _filters['f_client_key'] | url_encode }}&province={{ _filters['f_province'] | url_encode }}&city={{ _filters['f_city'] | url_encode }}&store_id={{ _filters['f_store_id'] | url_encode }}"
+    }
   }
 
   dimension: hour {
