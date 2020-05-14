@@ -4,7 +4,13 @@ view: v_weather_sales {
     w.condition_label, w.condition_value, s.value sales_value
     FROM `development-146318.wip.wip_business_metric_by_hour` s
     inner join `development-146318.wip.wip_product` p on s.product_id=p.id
-    left join `development-146318.wip.wip_weather_by_hr` w on p.poi_id=w.poi_id and w.ts_local=s.ts_local
+    left join
+       {% if v_weather_sales.f_weather_type == 'fx' %}
+      `development-146318.wip.wip_weather_historical_fx_by_hr`
+      {% else %}
+      `development-146318.wip.wip_weather_by_hr`
+      {% endif %}
+      w on p.poi_id=w.poi_id and w.ts_local=s.ts_local
     where p.province is not null
     and {% condition f_client_key %} p.client_key {% endcondition %}
     and {% condition f_province %} p.province {% endcondition %}
@@ -51,6 +57,10 @@ view: v_weather_sales {
     type:  date
   }
 
+  filter: f_weather_type {
+    type: string
+  }
+
   dimension: client_id {
     type: string
     sql: ${TABLE}.client_id ;;
@@ -91,7 +101,7 @@ view: v_weather_sales {
     sql: ${TABLE}.ts ;;
     link: {
       label: "By Hour"
-      url: "/embed/dashboards/55?date_range={{value}}&weather_condition={{ _filters['weather_condition'] | url_encode }}&client_key={{ _filters['f_client_key'] | url_encode }}&province={{ _filters['f_province'] | url_encode }}&city={{ _filters['f_city'] | url_encode }}&store_id={{ _filters['f_store_id'] | url_encode }}"
+      url: "/embed/dashboards/55?date_range={{value}}&weather_condition={{ _filters['weather_condition'] | url_encode }}&client_key={{ _filters['f_client_key'] | url_encode }}&province={{ _filters['f_province'] | url_encode }}&city={{ _filters['f_city'] | url_encode }}&store_id={{ _filters['f_store_id'] | url_encode }}&weather_type={{ _filters['f_weather_type'] | url_encode }}"
     }
   }
 
