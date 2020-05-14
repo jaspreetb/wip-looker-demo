@@ -125,7 +125,7 @@ group by product_id, province, city,store, revenue_center, item, lat, lon, store
     type: string
     sql: ${TABLE}.month_name ;;
     link: {
-      label: "Select Store"
+      label: "By City"
       url: "/embed/dashboards/54?month_name={{value}}&client_key={{ _filters['f_client_key'] | url_encode }}&province={{ _filters['f_province'] | url_encode }}&city={{ _filters['f_city'] | url_encode }}&store_id={{ _filters['f_store_id'] | url_encode }}&weather_type={{ _filters['f_weather_type'] | url_encode }}"
     }
   }
