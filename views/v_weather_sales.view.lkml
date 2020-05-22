@@ -132,7 +132,7 @@ view: v_weather_sales {
   measure: avg_weather_value {
     type: number
     sql: avg(${TABLE}.condition_value) ;;
-    value_format: "#,##0.0"
+    value_format: "#,##0.00"
   }
 
   measure: total_sales {
