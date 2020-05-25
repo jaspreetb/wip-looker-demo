@@ -2,7 +2,6 @@ view: v_store {
   derived_table: {
     sql: SELECT distinct p.client_id, p.store_id, p.label AS store, p.province, p.city, p.label, p.lat, p.lon
         FROM `development-146318.wip.wip_product` p
-          inner join `development-146318.wip.wip_forecast` f on p.id=f.product_id
         WHERE
              {% condition f_client_key %} p.client_key {% endcondition %}
              and {% condition f_province %} p.province {% endcondition %}

@@ -1,11 +1,12 @@
 view: v_weather_month_correlation {
     derived_table: {
       sql:WITH sales AS (
-            SELECT p.client_id, p.poi_id, date(ts_local) date, sum(value) total_sales
+            SELECT p.client_id, p.poi_id, date(s.ts_local) date, sum(s.value) total_sales
             FROM `wip.wip_business_metric_by_hour` s
                 inner join `wip.wip_product` p on s.product_id=p.id
-            where s.ts_local BETWEEN '2016-01-01' AND '2019-06-02'
-             and {% condition f_client_key %} p.client_key {% endcondition %}
+                inner join `wip.wip_evaluation_set` e on e.product_id=s.product_id
+            where
+             {% condition f_client_key %} p.client_key {% endcondition %}
              and {% condition f_province %} p.province {% endcondition %}
              and {% condition f_city %} p.city {% endcondition %}
              and {% condition f_revenue_center %} p.dim1 {% endcondition %}
