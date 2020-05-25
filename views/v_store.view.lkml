@@ -1,14 +1,15 @@
 view: v_store {
   derived_table: {
-    sql: SELECT distinct client_id, store_id, label AS store, province, city, label, lat, lon
-        FROM `development-146318.wip.wip_product`
+    sql: SELECT distinct p.client_id, p.store_id, p.label AS store, p.province, p.city, p.label, p.lat, p.lon
+        FROM `development-146318.wip.wip_product` p
+          inner join `development-146318.wip.wip_forecast` f on p.id=f.product_id
         WHERE
-             {% condition f_client_key %} client_key {% endcondition %}
-             and {% condition f_province %} province {% endcondition %}
-             and {% condition f_city %} city {% endcondition %}
-             and {% condition f_revenue_center %} dim1 {% endcondition %}
-             and {% condition f_item %} dim2 {% endcondition %}
-             and {% condition f_store_id %} store_id {% endcondition %};;
+             {% condition f_client_key %} p.client_key {% endcondition %}
+             and {% condition f_province %} p.province {% endcondition %}
+             and {% condition f_city %} p.city {% endcondition %}
+             and {% condition f_revenue_center %} p.dim1 {% endcondition %}
+             and {% condition f_item %} p.dim2 {% endcondition %}
+             and {% condition f_store_id %} p.store_id {% endcondition %};;
   }
   filter: f_client_key {
     type: string
