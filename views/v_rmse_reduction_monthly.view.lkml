@@ -1,7 +1,9 @@
 view: v_rmse_reduction_monthly {
   derived_table: {
     sql: WITH daily AS (
-  SELECT p.id product_id, p.province, p.city,  p.label AS store, dim1 AS revenue_center, dim2 as item, p.lat, p.lon, store_id, timestamp(date(ts_local)) day,
+  SELECT p.id product_id, p.province, p.city,  p.label AS store, dim1 AS revenue_center, dim2 as item,
+    dim1_label AS revenue_center_label, dim2_label as item_label,
+    p.lat, p.lon, store_id, timestamp(date(ts_local)) day,
     sum(case when disable_weather=true then predicted_value end) predicted_value_no_weather,
     sum(case when disable_weather=true then actual_value end) actual_value_no_weather,
     sum(case when disable_weather=false then predicted_value end) predicted_value_weather,
@@ -20,12 +22,12 @@ view: v_rmse_reduction_monthly {
             {% else %}
             and p.dim1 is not null and p.dim2 is null
             {% endif %}
-  group by product_id, province, city,store, revenue_center, item, lat, lon, store_id, day
+  group by product_id, province, city,store, revenue_center, item, revenue_center_label, item_label, lat, lon, store_id, day
 )
-select product_id, province, city,store, revenue_center, item, lat, lon, store_id,  EXTRACT(month from date(day)) month, FORMAT_DATETIME("%b", datetime(day)) month_name,
+select product_id, province, city,store, revenue_center,revenue_center_label, item, item_label, lat, lon, store_id,  EXTRACT(month from date(day)) month, FORMAT_DATETIME("%b", datetime(day)) month_name,
   (sqrt(avg((predicted_value_no_weather-actual_value_no_weather)*(predicted_value_no_weather-actual_value_no_weather)))-sqrt(avg((predicted_value_weather-actual_value_weather)*(predicted_value_weather-actual_value_weather))))/sqrt(avg((predicted_value_no_weather-actual_value_no_weather)*(predicted_value_no_weather-actual_value_no_weather))) rmse_reduction
 from daily
-group by product_id, province, city,store, revenue_center, item, lat, lon, store_id, month, month_name;;
+group by product_id, province, city,store, revenue_center, item, revenue_center_label, item_label, lat, lon, store_id, month, month_name;;
   }
   filter: f_client_key {
     type: string
@@ -111,9 +113,19 @@ group by product_id, province, city,store, revenue_center, item, lat, lon, store
     sql: case when ${TABLE}.revenue_center is not null then ${TABLE}.revenue_center else '' end ;;
     }
 
+  dimension: revenue_center_label {
+    type: string
+    sql: case when ${TABLE}.revenue_center_label is not null then ${TABLE}.revenue_center_label else '' end ;;
+  }
+
   dimension: item {
     type: string
     sql: case when ${TABLE}.item is not null then ${TABLE}.item else '' end ;;
+  }
+
+  dimension: item_label {
+    type: string
+    sql: case when ${TABLE}.item_label is not null then ${TABLE}.item_label else '' end ;;
   }
 
   dimension: month {
