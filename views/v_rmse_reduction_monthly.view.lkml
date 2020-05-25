@@ -138,7 +138,7 @@ group by product_id, province, city,store, revenue_center, item, revenue_center_
     sql: ${TABLE}.month_name ;;
     link: {
       label: "By City"
-      url: "/embed/dashboards/54?month_name={{value}}&client_key={{ _filters['f_client_key'] | url_encode }}&province={{ _filters['f_province'] | url_encode }}&city={{ _filters['f_city'] | url_encode }}&revenue_center={{ _filters['f_revenu_center']&item={{ _filters['item']&store_id={{ _filters['f_store_id'] | url_encode }}&weather_type={{ _filters['f_weather_type'] | url_encode }}"
+      url: "/embed/dashboards/54?month_name={{value}}&client_key={{ _filters['f_client_key'] | url_encode }}&province={{ _filters['f_province'] | url_encode }}&city={{ _filters['f_city'] | url_encode }}&revenue_center={{ _filters['f_revenu_center'] | url_encode }}&item={{ _filters['item'] | url_encode }}&store_id={{ _filters['f_store_id'] | url_encode }}&weather_type={{ _filters['f_weather_type'] | url_encode }}"
     }
   }
 
@@ -174,14 +174,29 @@ group by product_id, province, city,store, revenue_center, item, revenue_center_
     sql: count(${TABLE}.product_id);;
   }
 
+  measure: open_store_count {
+    type: number
+    sql: count(distinct ${TABLE}.store_id);;
+  }
+
+  measure: qualify_store_count {
+    type: number
+    sql: count(distinct case when ${TABLE}.rmse_reduction >= 0.1 then ${TABLE}.store_id else null end);;
+  }
+
   measure: store_percentage_ge_10 {
     type: number
     sql: SAFE_DIVIDE(count(distinct case when ${TABLE}.rmse_reduction >= 0.1 then ${TABLE}.store_id else null end), count(distinct ${TABLE}.store_id)) ;;
     value_format: "0.00%"
     html: <div>
+            <br/>
             Percentage: {{store_percentage_ge_10._rendered_value}}
             <br/>
             Average Weather Impact: {{avg_rmse_reduction._rendered_value}}
+            <br/><br/>
+            #s of stores qualified: {{qualify_store_count}}
+            <br/>
+            #s of stores open: {{open_store_count}}
           </div> ;;
   }
 }
