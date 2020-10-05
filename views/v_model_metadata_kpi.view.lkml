@@ -2,11 +2,14 @@ view: v_model_metadata_kpi {
   derived_table: {
 
     sql:with lk as (
+      select * from (
       select key, label_en label
       from `development-146318.wip.wip_lk_weather`
       union all
       select ws_key key, label_en label
-      from `development-146318.wip.wip_lk_weather`
+      from `development-146318.wip.wip_lk_weather`)
+      -- removing snow for Bala's demo, the where clause should be removed later
+      where key not like 'snow%'
     )
     SELECT distinct p.client_id, p.province, p.city, p.store_id, p.label AS store, dim1 AS revenue_center, dim2 as item, cast(m.date AS timestamp) date, i.type, i.key, lk.label AS key_label, i.value
 FROM `development-146318.wip.wip_model_metadata` m
