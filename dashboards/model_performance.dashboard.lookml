@@ -4,7 +4,7 @@
   elements:
   - title: Model Performance Overtime
     name: Model Performance Overtime
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     type: looker_line
     fields: [v_evaluation_set.total_actual_sales, v_evaluation_set.total_historical_sales,
@@ -73,7 +73,7 @@
     height: 7
   - title: Root Mean Square Error (Actual vs Prediction)
     name: Root Mean Square Error (Actual vs Prediction)
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     type: single_value
     fields: [v_evaluation_set.rmse_predict_actual]
@@ -103,7 +103,7 @@
     height: 3
   - title: Root Mean Square Error (Actual vs Last Year Sales)
     name: Root Mean Square Error (Actual vs Last Year Sales)
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     type: single_value
     fields: [v_evaluation_set.rmse_historical_actual]
@@ -133,7 +133,7 @@
     height: 3
   - title: Prediction Overview
     name: Prediction Overview
-    model: wip
+    model: wip_demo
     explore: v_model_performance
     type: looker_map
     fields: [v_model_performance.location, v_model_performance.total_predicted_value,
@@ -189,7 +189,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     listens_to_filters: []
     field: v_evaluation_set.client_id
@@ -199,7 +199,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     listens_to_filters: [Client]
     field: v_evaluation_set.province
@@ -209,7 +209,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     listens_to_filters: [Client, Province]
     field: v_evaluation_set.city
@@ -219,7 +219,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     listens_to_filters: [Client, Province, City]
     field: v_evaluation_set.store
@@ -229,7 +229,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     listens_to_filters: [Client, Province, City, Store]
     field: v_evaluation_set.revenue_center
@@ -239,7 +239,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_evaluation_set
     listens_to_filters: [Client, Province, City, Store]
     field: v_evaluation_set.item

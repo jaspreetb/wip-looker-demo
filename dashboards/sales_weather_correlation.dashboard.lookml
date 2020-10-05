@@ -4,7 +4,7 @@
   elements:
   - title: Sales Weather Corrolation
     name: Sales Weather Corrolation
-    model: wip
+    model: wip_demo
     explore: v_weather_sales
     type: looker_line
     fields: [v_weather_sales.date, v_weather_sales.avg_weather_value, v_weather_sales.daily_sales]
@@ -72,7 +72,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_weather_sales
     listens_to_filters: []
     field: v_weather_sales.client_id
@@ -82,7 +82,7 @@
     default_value: 'ON'
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_weather_sales
     listens_to_filters: []
     field: v_weather_sales.province
@@ -92,7 +92,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_weather_sales
     listens_to_filters: []
     field: v_weather_sales.city
@@ -102,7 +102,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_weather_sales
     listens_to_filters: []
     field: v_weather_sales.revenue_center
@@ -112,7 +112,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_weather_sales
     listens_to_filters: []
     field: v_weather_sales.item
@@ -128,7 +128,7 @@
     default_value: temp
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_weather_sales
     listens_to_filters: []
     field: v_weather_sales.weather_condition

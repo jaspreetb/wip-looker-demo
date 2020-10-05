@@ -4,7 +4,7 @@
   elements:
   - title: Percentage of Stores with > 10% Reduced Prediction Error
     name: Percentage of Stores with > 10% Reduced Prediction Error
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     type: looker_column
     fields: [v_geo_weather_impact.store_percentage_ge_10, v_geo_weather_impact.province]
@@ -72,7 +72,7 @@
     height: 7
   - title: Average Impact
     name: Average Impact
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     type: single_value
     fields: [v_geo_weather_impact.average_meta_data_value]
@@ -104,7 +104,7 @@
     height: 3
   - title: Store Average RMSE
     name: Store Average RMSE
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     type: looker_map
     fields: [v_geo_weather_impact.location, v_geo_weather_impact.store, v_geo_weather_impact.average_meta_data_value]
@@ -156,7 +156,7 @@
     height: 10
   - title: Top Variables
     name: Top Variables
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     type: looker_grid
     fields: [v_geo_weather_impact.meta_data_key, v_geo_weather_impact.average_meta_data_value]
@@ -227,7 +227,7 @@
     default_value: '9001'
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     listens_to_filters: []
     field: v_geo_weather_impact.client_id
@@ -237,7 +237,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     listens_to_filters: [Client]
     field: v_geo_weather_impact.province
@@ -247,7 +247,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     listens_to_filters: [Client, Province]
     field: v_geo_weather_impact.city
@@ -257,7 +257,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     listens_to_filters: []
     field: v_geo_weather_impact.month
@@ -267,7 +267,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     listens_to_filters: [Client, Province, City]
     field: v_geo_weather_impact.revenue_center
@@ -277,7 +277,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_geo_weather_impact
     listens_to_filters: [Client, Province, City]
     field: v_geo_weather_impact.item

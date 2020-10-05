@@ -11,7 +11,7 @@
   elements:
   - title: Average Daily Sales Prediction
     name: Average Daily Sales Prediction
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     type: single_value
     fields: [v_sales_forecast.average_predicted_value]
@@ -43,7 +43,7 @@
     height: 3
   - title: Prediction Sales Sum
     name: Prediction Sales Sum
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     type: single_value
     fields: [v_sales_forecast.total_predicted_value]
@@ -74,7 +74,7 @@
     height: 3
   - title: Top Variables
     name: Top Variables
-    model: wip
+    model: wip_demo
     explore: v_model_metadata_kpi
     type: table
     fields: [v_model_metadata_kpi.average_value, v_model_metadata_kpi.key_label]
@@ -224,7 +224,7 @@
     height: 3
   - title: Sales Prediction
     name: Sales Prediction
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     type: looker_line
     fields: [v_sales_forecast.total_predicted_value, v_sales_forecast.total_historical_sales,
@@ -287,7 +287,7 @@
     height: 8
   - title: Stores
     name: Stores
-    model: wip
+    model: wip_demo
     explore: v_store
     type: looker_map
     fields: [v_store.location, v_store.label]
@@ -334,7 +334,7 @@
     default_value: '9001'
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     listens_to_filters: []
     field: v_sales_forecast.client_id
@@ -344,7 +344,7 @@
     default_value: 'ON'
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     listens_to_filters: [Client]
     field: v_sales_forecast.province
@@ -354,7 +354,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     listens_to_filters: [Province, Client]
     field: v_sales_forecast.city
@@ -364,7 +364,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     listens_to_filters: [Province, City, Client]
     field: v_sales_forecast.store
@@ -374,7 +374,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     listens_to_filters: [Province, City, Client]
     field: v_sales_forecast.revenue_center
@@ -384,7 +384,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: wip
+    model: wip_demo
     explore: v_sales_forecast
     listens_to_filters: [Province, City, Revenue_Center, Client]
     field: v_sales_forecast.item
